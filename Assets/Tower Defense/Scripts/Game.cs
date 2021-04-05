@@ -6,17 +6,21 @@ using UnityEngine.UI;
 
 public class Game : MonoBehaviour
 {
-    int score = 0;
+    public int coins = 0;
     public Text points;
+    public float timer = 0f;
+    public Text subtract;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        subtract.enabled = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        
 
         if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
@@ -26,7 +30,7 @@ public class Game : MonoBehaviour
             if (Physics.Raycast(ray, out hit, 1000))
             {
 
-                hit.collider.gameObject.GetComponent<Enemy>().hit();
+                hit.collider.gameObject.GetComponent<Enemy>().Damage();
                 
 
             }
@@ -34,11 +38,23 @@ public class Game : MonoBehaviour
 
         }
 
+        
+        if(timer > 0)
+        {
+            timer -= Time.deltaTime;
+            subtract.enabled = true;
+        }
+
+        if(timer < 0)
+        {
+            subtract.enabled = false;
+            timer = 0;
+        }
     }
 
     public void updateScore(int amt)
     {
-        score += amt;
-        points.text = score.ToString();
+        coins += amt;
+        points.text = coins.ToString();
     }
 }
