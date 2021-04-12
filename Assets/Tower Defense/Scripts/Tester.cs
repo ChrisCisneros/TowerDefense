@@ -21,7 +21,7 @@ public class Tester : MonoBehaviour
         if (Physics.Raycast(ray, out hit))
           if (hit.transform.tag == "Enemy")
           {
-            hit.transform.GetComponent<Enemy>().Damage();
+            hit.transform.GetComponent<Enemy>().Damage(1);
           }
           else
             print("I'm looking at nothing!");
